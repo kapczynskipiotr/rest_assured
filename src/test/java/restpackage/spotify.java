@@ -1,28 +1,23 @@
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
+package restpackage;
+
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
-import org.json.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.*;
 import org.junit.Assert;
-import org.json.JSONObject;
 
 import static io.restassured.RestAssured.get;
 import static org.junit.matchers.JUnitMatchers.*;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import static io.restassured.RestAssured.given;
+
+import restpackage.helper;
+
 
 
 public class spotify {
@@ -31,19 +26,17 @@ public class spotify {
 
 
     @Test
-    public void test () {
-        Response response = RestAssured.get("https://reqres.in/api/users?page=" + param);
-        int statusCode = response.getStatusCode();
-        Assert.assertEquals("status is ok", 212, statusCode);
-
+    public void cleanTest () {
+        Assert.assertEquals("status is ok", 200, helper.restGetStatus("https://reqres.in/api/users?page=", 2));
 
     }
+
     @Test
     public void post() throws IOException, ParseException {
 
 
         JSONParser jsonParser = new JSONParser();
-        try (FileReader reader = new FileReader("C:\\Users\\Piotrek\\IdeaProjects\\rest assured\\src\\test\\java\\gejson.json")) {
+        try (FileReader reader = new FileReader("C:\\Users\\Piotrek\\IdeaProjects\\rest assured\\src\\test\\java\\restpackage\\gejson.json")) {
 
             Object obj = jsonParser.parse(reader);
 
@@ -72,7 +65,7 @@ public class spotify {
 
         //JSON parser object to parse read file
         JSONParser jsonParser = new JSONParser();
-        try (FileReader reader = new FileReader("C:\\Users\\Piotrek\\IdeaProjects\\rest assured\\src\\test\\java\\gejson.json")) {
+        try (FileReader reader = new FileReader("C:\\Users\\Piotrek\\IdeaProjects\\rest assured\\src\\test\\java\\restpackage\\gejson.json")) {
 
             //Read JSON file
             Object obj = jsonParser.parse(reader);
